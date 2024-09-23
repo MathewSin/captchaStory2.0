@@ -1,0 +1,9 @@
+To-Do List CaptchaV2 (CaptchaStory/3FactorAuthentication)
+
+1. Menambahkan login page diawal atau captcha ini dimasukkan ke dalam login page itu. (Ubah halaman login tersebut jadi index.html trus page 1 captcha jadi Page1.html supaya waktu awal masuk langsung masuk ke dalam login page itu) - Done
+2. Membuat simple home page setelah selesai melakukan captcha.
+3. Buat pertanyaan buat question 2 dan 3.
+4. Coba masukin semua captcha ini ke dalam page login.
+
+Design:
+1. Putih gedein, tulisan naikin.

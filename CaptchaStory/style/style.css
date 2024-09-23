@@ -1,0 +1,140 @@
+html, body {
+    height: 100%; /* Make html and body full height */
+    margin: 0; /* Remove default margin */
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f8ff;
+    text-align: center;
+    /* background-image: url('farm.jpg');
+    background-repeat: no-repeat;
+    background-size: 100%; /* Adjust the size of the background image */
+    /* background-position: center; */ 
+    height: 100vh; /* Use full viewport height */
+    display: flex; /* Enable flexbox */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+}
+
+.captcha-container {
+    background-color: #ffffff;
+    background-image: url('farm.jpg');
+    background-repeat: no-repeat;
+    background-size: 110%; /* Adjust the size of the background image */
+    background-position: center;
+    border: 2px solid #cccccc;
+    border-radius: 10px;
+    padding: 90px;
+    max-width: 400px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #f0770e;
+    background-color: white;
+}
+
+p{
+    background-color: white;
+}
+
+.story-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.captcha-image {
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+.captcha-image:hover {
+    transform: scale(1.1);
+}
+
+#response-message {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #007bff;
+}
+
+/* Modal Styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Black background with opacity */
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%; /* Adjust width */
+    max-width: 600px; /* Limit max width */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+    text-align: center; /* Center text inside modal */
+}
+
+.close {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Center the captcha images in the modal */
+.captcha-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; /* Allow wrapping for smaller screens */
+    gap: 20px; /* Space between images */
+}
+
+.captcha-image {
+    background-color: white;
+    width: 100px;
+    height: 100px;
+    object-fit: cover; /* Make sure images maintain aspect ratio */
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border 0.3s ease;
+}
+
+.captcha-image:hover {
+    border-color: #4CAF50; /* Highlight the image on hover */
+}
+
+/* Adjusting the modal size and content for smaller screens */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 90%;
+    }
+
+    .captcha-image {
+        width: 80px;
+        height: 80px;
+    }
+}
