@@ -43,8 +43,8 @@ function loadRandomCaptcha(captchaContent) {
                 captchaContent.setAttribute('data-type', 'house'); // Untuk rumah
             } else if (randomPage === 'page2.html') {
                 captchaContent.setAttribute('data-type', 'fruit'); // Untuk buah
-            }else if (randomPage === 'page3.html') {
-                captchaContent.setAttribute('data-type', 'fruit');
+            } else if (randomPage === 'page3.html') {
+                captchaContent.setAttribute('data-type', 'animal'); // Untuk hewan
             }
 
             // Langsung inisialisasi setelah mengatur innerHTML
@@ -63,15 +63,15 @@ function loadRandomCaptcha(captchaContent) {
 }
 
 
-
 // Initialize CAPTCHA event listeners based on type
 function initializeCaptcha(captchaType) {
     console.log('Initializing CAPTCHA of type:', captchaType);
-
     if (captchaType === 'fruit') {
         initializeFruitCaptcha(); // Initialize fruit-related event listeners
     } else if (captchaType === 'house') {
         initializeHouseCaptcha(); // Initialize house-related event listeners
+    } else if (captchaType === 'animal') {
+        initializeAnimalCaptcha(); // Initialize animal-related event listeners
     } else {
         console.error('Unknown CAPTCHA type:', captchaType);
     }
@@ -186,6 +186,61 @@ rabbitHouseImage.addEventListener('click', function() {
             imageAlt: "Custom image",
             confirmButtonText: 'OK'
         });
+    });
+}
+
+
+function initializeAnimalCaptcha() {
+    const fishImage = document.getElementById('fish');
+    const birdImage = document.getElementById('bird');
+    const turtleImage = document.getElementById('turtle');
+
+    if (!fishImage || !birdImage || !turtleImage) {
+        console.error('CAPTCHA images not found. Make sure the animal images are loaded correctly.');
+        return;
+    }
+
+    // Event listener for turtle (correct answer)
+    turtleImage.addEventListener('click', function() {
+        Swal.fire({
+            title: "Good Job!",
+            text: "Turtle bisa berlari bersama kelinci, meskipun lambat!",
+            imageUrl: "../style/turtle.png",
+            imageWidth: 400,
+            imageHeight: 200,
+            imageAlt: "Turtle image",
+            confirmButtonText: 'OK'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                completeCaptcha();
+            }
+        });
+    });
+
+    // Event listener for fish (incorrect answer)
+    fishImage.addEventListener('click', function() {
+        Swal.fire({
+            title: "Oops, Salah!",
+            text: "Ikan tidak bisa berlari di darat!",
+            imageUrl: "../style/Fish.png",
+            imageWidth: 200,
+            imageHeight: 200,
+            imageAlt: "Fish image",
+            confirmButtonText: 'OK'
+        }).then(() => reloadCaptcha());
+    });
+
+    // Event listener for bird (incorrect answer)
+    birdImage.addEventListener('click', function() {
+        Swal.fire({
+            title: "Oops, Salah!",
+            text: "Burung lebih suka terbang daripada berlari!",
+            imageUrl: "../style/bird.png",
+            imageWidth: 400,
+            imageHeight: 200,
+            imageAlt: "Bird image",
+            confirmButtonText: 'OK'
+        }).then(() => reloadCaptcha());
     });
 }
 
