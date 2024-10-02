@@ -20,13 +20,22 @@ function showCaptchaPopup() {
     };
 }
 
+// Function to reload the CAPTCHA after incorrect answer
+function reloadCaptcha() {
+    const captchaContent = document.getElementById("captcha-content");
+    captchaContent.innerHTML = ''; // Clear existing CAPTCHA content
+    loadRandomCaptcha(captchaContent); // Load new random CAPTCHA
+}
 
 function loadRandomCaptcha(captchaContent) {
     const captchaPages = ['page1.html', 'page2.html', 'page3.html'];
-    const randomPage = captchaPages[Math.floor(Math.random() * captchaPages.length)]; // Randomize first
 
-    console.log('Loading CAPTCHA page:', randomPage); // Log halaman yang dipilih
-    console.log('Fetching:', randomPage); // Log URL yang akan di-fetch
+    // Improved randomization with logging
+    const randomIndex = Math.floor(Math.random() * captchaPages.length);
+    const randomPage = `${captchaPages[randomIndex]}?t=${Date.now()}`; // Cache-busting query parameter
+
+    console.log('Random Index:', randomIndex); // Log the index
+    console.log('Selected CAPTCHA page:', randomPage); // Log the selected page
 
     fetch(randomPage)
         .then(response => {
@@ -36,25 +45,31 @@ function loadRandomCaptcha(captchaContent) {
             return response.text();
         })
         .then(html => {
-            captchaContent.innerHTML = html; // Set konten CAPTCHA
+            captchaContent.innerHTML = html; // Set CAPTCHA content
+            console.log('CAPTCHA page loaded successfully');
 
-            // Atur data-type berdasarkan halaman yang dimuat
-            if (randomPage === 'page1.html') {
-                captchaContent.setAttribute('data-type', 'house'); // Untuk rumah
-            } else if (randomPage === 'page2.html') {
-                captchaContent.setAttribute('data-type', 'fruit'); // Untuk buah
-            } else if (randomPage === 'page3.html') {
-                captchaContent.setAttribute('data-type', 'animal'); // Untuk hewan
+            // Set data-type based on the loaded page
+            if (randomPage.includes('page1.html')) {
+                captchaContent.setAttribute('data-type', 'house');
+            } else if (randomPage.includes('page2.html')) {
+                captchaContent.setAttribute('data-type', 'fruit');
+            } else if (randomPage.includes('page3.html')) {
+                captchaContent.setAttribute('data-type', 'animal');
             }
 
-            // Initialize the CAPTCHA event listeners based on loaded content
+            // Initialize the CAPTCHA event listeners
             initializeCaptcha(captchaContent.getAttribute('data-type'));
         })
         .catch(error => {
             console.error('Error loading CAPTCHA:', error);
+            Swal.fire({
+                title: "Error loading CAPTCHA",
+                text: "Please try again later.",
+                icon: "error",
+                confirmButtonText: "OK"
+            });
         });
 }
-
 
 
 // Initialize CAPTCHA event listeners based on type
@@ -70,6 +85,8 @@ function initializeCaptcha(captchaType) {
         console.error('Unknown CAPTCHA type:', captchaType);
     }
 }
+
+
 
 // Event listeners for fruit CAPTCHA
 function initializeFruitCaptcha() {
@@ -166,7 +183,7 @@ rabbitHouseImage.addEventListener('click', function() {
             imageHeight: 200,
             imageAlt: "Custom image",
             confirmButtonText: 'OK'
-        });
+        }).then(() => reloadCaptcha());
     });
 
     // Event listener for cat house (incorrect answer)
@@ -179,7 +196,7 @@ rabbitHouseImage.addEventListener('click', function() {
             imageHeight: 200,
             imageAlt: "Custom image",
             confirmButtonText: 'OK'
-        });
+        }).then(() => reloadCaptcha());
     });
 }
 
@@ -250,12 +267,7 @@ function completeCaptcha() {
 }
 
 
-// Function to reload the CAPTCHA after incorrect answer
-function reloadCaptcha() {
-    const captchaContent = document.getElementById("captcha-content");
-    captchaContent.innerHTML = ''; // Clear existing CAPTCHA content
-    loadRandomCaptcha(captchaContent); // Load new random CAPTCHA
-}
+
 
 // Reset login form and error message
 function resetLogin() {
