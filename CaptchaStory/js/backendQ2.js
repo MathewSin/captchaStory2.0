@@ -15,7 +15,7 @@ carrotImage.addEventListener('click', function() {
     }).then((result) => {
       if (result.isConfirmed) {
         // Pindah ke halaman berikutnya setelah tombol OK ditekan
-        window.location.href = '../html/page3.html'; // Ganti dengan halaman berikutnya
+        window.location.href = '../html/home.html'; // Ganti dengan halaman berikutnya
       }
     });
 });

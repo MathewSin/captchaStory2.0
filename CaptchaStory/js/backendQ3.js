@@ -1,47 +1,48 @@
-const carrotImage = document.getElementById('carrot');
-const appleImage = document.getElementById('apple');
-const bananaImage = document.getElementById('banana');
+const fishImage = document.getElementById('fish');
+const birdImage = document.getElementById('bird');
+const turtleImage = document.getElementById('turtle');
 const responseMessage = document.getElementById('response-message'); // Pastikan ini dideklarasikan di awal
 
-carrotImage.addEventListener('click', function() {
-    Swal.fire({
-      title: "Nice Job!",
-      text: "Tahukan kamu, Wortel itu baik untuk Mata!",
-      imageUrl: "../style/Wortel.png",
+turtleImage.addEventListener('click', function() {
+  Swal.fire({
+      title: "Good Job!",
+      text: "Turtle bisa berlari bersama kelinci, meskipun lambat!",
+      imageUrl: "../style/turtle.png",
       imageWidth: 400,
       imageHeight: 200,
-      imageAlt: "Custom image",
+      imageAlt: "Turtle image",
       confirmButtonText: 'OK'
-    }).then((result) => {
+  }).then((result) => {
       if (result.isConfirmed) {
-        // Pindah ke halaman berikutnya setelah tombol OK ditekan
-        window.location.href = '../html/home.html'; // Ganti dengan halaman berikutnya
+          completeCaptcha();
       }
-    });
+  });
 });
 
-appleImage.addEventListener('click', function() {
+// Event listener for fish (incorrect answer)
+fishImage.addEventListener('click', function() {
   Swal.fire({
-    title: "Jawaban Masih belum tepat!",
-    text: "Ini buah apel, sehat untuk pencernaan!",
-    imageUrl: "../style/apple2.png",
-    imageWidth: 200,
-    imageHeight: 200,
-    imageAlt: "Custom image",
-    confirmButtonText: 'OK'
-  })
+      title: "Oops, Salah!",
+      text: "Ikan tidak bisa berlari di darat!",
+      imageUrl: "../style/Fish.png",
+      imageWidth: 200,
+      imageHeight: 200,
+      imageAlt: "Fish image",
+      confirmButtonText: 'OK'
+  }).then(() => reloadCaptcha());
 });
 
-bananaImage.addEventListener('click', function() {
+// Event listener for bird (incorrect answer)
+birdImage.addEventListener('click', function() {
   Swal.fire({
-    title: "Jawaban Masih belum tepat!",
-    text: "Ini buah pisang, buah ini dapat membantu menjaga kekebalan tubuh!",
-    imageUrl: "../style/banana2.png",
-    imageWidth: 400,
-    imageHeight: 200,
-    imageAlt: "Custom image",
-    confirmButtonText: 'OK'
-  })
+      title: "Oops, Salah!",
+      text: "Burung lebih suka terbang daripada berlari!",
+      imageUrl: "../style/bird.png",
+      imageWidth: 400,
+      imageHeight: 200,
+      imageAlt: "Bird image",
+      confirmButtonText: 'OK'
+  }).then(() => reloadCaptcha());
 });
 
 

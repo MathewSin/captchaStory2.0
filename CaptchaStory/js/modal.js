@@ -23,7 +23,7 @@ function showCaptchaPopup() {
 
 function loadRandomCaptcha(captchaContent) {
     const captchaPages = ['page1.html', 'page2.html', 'page3.html'];
-    const randomPage = captchaPages[Math.floor(Math.random() * captchaPages.length)];
+    const randomPage = captchaPages[Math.floor(Math.random() * captchaPages.length)]; // Randomize first
 
     console.log('Loading CAPTCHA page:', randomPage); // Log halaman yang dipilih
     console.log('Fetching:', randomPage); // Log URL yang akan di-fetch
@@ -47,20 +47,14 @@ function loadRandomCaptcha(captchaContent) {
                 captchaContent.setAttribute('data-type', 'animal'); // Untuk hewan
             }
 
-            // Langsung inisialisasi setelah mengatur innerHTML
-            const captchaContentElement = document.getElementById('captcha-content');
-            if (captchaContentElement) {
-                const captchaType = captchaContentElement.getAttribute('data-type');
-                console.log('CAPTCHA Type:', captchaType); // Log tipe CAPTCHA
-                initializeCaptcha(captchaType);
-            } else {
-                console.error('CAPTCHA content element not found.');
-            }
+            // Initialize the CAPTCHA event listeners based on loaded content
+            initializeCaptcha(captchaContent.getAttribute('data-type'));
         })
         .catch(error => {
             console.error('Error loading CAPTCHA:', error);
         });
 }
+
 
 
 // Initialize CAPTCHA event listeners based on type
@@ -258,7 +252,9 @@ function completeCaptcha() {
 
 // Function to reload the CAPTCHA after incorrect answer
 function reloadCaptcha() {
-    loadRandomCaptcha(document.getElementById("captcha-content"));
+    const captchaContent = document.getElementById("captcha-content");
+    captchaContent.innerHTML = ''; // Clear existing CAPTCHA content
+    loadRandomCaptcha(captchaContent); // Load new random CAPTCHA
 }
 
 // Reset login form and error message

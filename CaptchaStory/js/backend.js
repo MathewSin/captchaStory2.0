@@ -21,7 +21,7 @@ function initializeHouseListeners() {
           confirmButtonText: 'OK'
       }).then((result) => {
           if (result.isConfirmed) {
-              window.location.href = '../html/page2.html'; // Pindah ke halaman berikutnya
+              window.location.href = '../html/home.html'; // Pindah ke halaman berikutnya
           }
       });
   });
