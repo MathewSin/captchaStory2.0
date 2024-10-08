@@ -1,5 +1,6 @@
 To-Do List CaptchaV2 (CaptchaStory/3FactorAuthentication)
 
+Logic
 1. Membuat simple home page setelah selesai melakukan captcha.
 2. Buat logic supaya posisi gambarnya bisa dirandomize juga.
 
