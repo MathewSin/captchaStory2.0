@@ -7,3 +7,4 @@ Logic
 Design:
 1. Putih gedein, tulisan naikin.
 2. Sempurnakan (Kace tolong)
+3. Perbaiki css home page karena loginnya tidak center.
