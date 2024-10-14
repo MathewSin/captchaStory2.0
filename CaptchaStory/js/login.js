@@ -28,8 +28,7 @@ function validateLogin(event) {
     } else {
         failedLoginAttempts++; // Increment failed login attempts
         errorMessage.textContent = 'Invalid username or password!';
-				  document.getElementById('username').value = '';
-        document.getElementById('password').value = '';
+				document.getElementById('password').value = '';
 
         // Check if failed attempts reached 5
         if (failedLoginAttempts >= 5) {
