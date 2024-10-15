@@ -27,15 +27,54 @@ function reloadCaptcha() {
     loadRandomCaptcha(captchaContent); // Load new random CAPTCHA
 }
 
+// function loadRandomCaptcha(captchaContent) {
+//     const captchaPages = ['page1.html', 'page2.html', 'page3.html'];
+
+//     // Improved randomization with logging
+//     const randomIndex = Math.floor(Math.random() * captchaPages.length);
+//     const randomPage = `${captchaPages[randomIndex]}?t=${Date.now()}`; // Cache-busting query parameter
+
+//     console.log('Random Index:', randomIndex); // Log the index
+//     console.log('Selected CAPTCHA page:', randomPage); // Log the selected page
+
+//     fetch(randomPage)
+//         .then(response => {
+//             if (!response.ok) {
+//                 throw new Error(`HTTP error! Status: ${response.status}`);
+//             }
+//             return response.text();
+//         })
+//         .then(html => {
+//             captchaContent.innerHTML = html; // Set CAPTCHA content
+//             console.log('CAPTCHA page loaded successfully');
+
+//             // Set data-type based on the loaded page
+//             if (randomPage.includes('page1.html')) {
+//                 captchaContent.setAttribute('data-type', 'house');
+//             } else if (randomPage.includes('page2.html')) {
+//                 captchaContent.setAttribute('data-type', 'fruit');
+//             } else if (randomPage.includes('page3.html')) {
+//                 captchaContent.setAttribute('data-type', 'animal');
+//             }
+
+//             // Initialize the CAPTCHA event listeners
+//             initializeCaptcha(captchaContent.getAttribute('data-type'));
+//         })
+//         .catch(error => {
+//             console.error('Error loading CAPTCHA:', error);
+//             Swal.fire({
+//                 title: "Error loading CAPTCHA",
+//                 text: "Please try again later.",
+//                 icon: "error",
+//                 confirmButtonText: "OK"
+//             });
+//         });
+// }
+
 function loadRandomCaptcha(captchaContent) {
     const captchaPages = ['page1.html', 'page2.html', 'page3.html'];
-
-    // Improved randomization with logging
     const randomIndex = Math.floor(Math.random() * captchaPages.length);
-    const randomPage = `${captchaPages[randomIndex]}?t=${Date.now()}`; // Cache-busting query parameter
-
-    console.log('Random Index:', randomIndex); // Log the index
-    console.log('Selected CAPTCHA page:', randomPage); // Log the selected page
+    const randomPage = `${captchaPages[randomIndex]}?t=${Date.now()}`;
 
     fetch(randomPage)
         .then(response => {
@@ -45,8 +84,7 @@ function loadRandomCaptcha(captchaContent) {
             return response.text();
         })
         .then(html => {
-            captchaContent.innerHTML = html; // Set CAPTCHA content
-            console.log('CAPTCHA page loaded successfully');
+            captchaContent.innerHTML = html;
 
             // Set data-type based on the loaded page
             if (randomPage.includes('page1.html')) {
@@ -56,6 +94,9 @@ function loadRandomCaptcha(captchaContent) {
             } else if (randomPage.includes('page3.html')) {
                 captchaContent.setAttribute('data-type', 'animal');
             }
+
+            // Acak posisi gambar setelah CAPTCHA dimuat
+            shuffleCaptchaImages(captchaContent);
 
             // Initialize the CAPTCHA event listeners
             initializeCaptcha(captchaContent.getAttribute('data-type'));
@@ -70,6 +111,23 @@ function loadRandomCaptcha(captchaContent) {
             });
         });
 }
+
+function shuffleCaptchaImages(captchaContent) {
+    const images = Array.from(captchaContent.querySelectorAll('img'));
+
+    // Tentukan jumlah pengacakan ulang (misalnya, 3 kali)
+    const shuffleTimes = 3;
+    for (let n = 0; n < shuffleTimes; n++) {
+        for (let i = images.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [images[i], images[j]] = [images[j], images[i]];
+        }
+    }
+
+    // Tambahkan kembali elemen gambar yang telah diacak ke captchaContent
+    images.forEach(image => captchaContent.appendChild(image));
+}
+
 
 
 // Initialize CAPTCHA event listeners based on type
