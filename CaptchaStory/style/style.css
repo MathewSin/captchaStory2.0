@@ -55,6 +55,7 @@ p{
     cursor: pointer;
     transition: transform 0.2s ease-in-out;
     margin-top: 25px;
+    margin-right: 10px;
 }
 
 .captcha-image:hover {
