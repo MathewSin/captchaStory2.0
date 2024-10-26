@@ -162,8 +162,8 @@ function initializeFruitCaptcha() {
         Swal.fire({
             title: "Nice Job!",
             text: "Tahukan kamu, Wortel itu baik untuk Mata!",
-            imageUrl: "../style/Wortel.png",
-            imageWidth: 400,
+            imageUrl: "../style/carrot.jpg",
+            imageWidth: 200,
             imageHeight: 200,
             imageAlt: "Custom image",
             confirmButtonText: 'OK'
@@ -179,7 +179,7 @@ function initializeFruitCaptcha() {
         Swal.fire({
             title: "Jawaban Masih belum tepat!",
             text: "Ini buah apel, sehat untuk pencernaan!",
-            imageUrl: "../style/apple2.png",
+            imageUrl: "../style/apple.jpg",
             imageWidth: 200,
             imageHeight: 200,
             imageAlt: "Custom image",
@@ -192,8 +192,8 @@ function initializeFruitCaptcha() {
         Swal.fire({
             title: "Jawaban Masih belum tepat!",
             text: "Ini buah pisang, buah ini dapat membantu menjaga kekebalan tubuh!",
-            imageUrl: "../style/banana2.png",
-            imageWidth: 400,
+            imageUrl: "../style/banana.jpg",
+            imageWidth: 200,
             imageHeight: 200,
             imageAlt: "Custom image",
             confirmButtonText: 'OK'
@@ -218,8 +218,8 @@ rabbitHouseImage.addEventListener('click', function() {
     Swal.fire({
         title: "Nice Job!",
         text: "Rumah kelinci umumnya berada di bawah tanah!",
-        imageUrl: "../style/rumahKelinci.png",
-        imageWidth: 400,
+        imageUrl: "../style/rumahkelinci.png",
+        imageWidth: 200,
         imageHeight: 200,
         imageAlt: "Custom image",
         confirmButtonText: 'OK'
@@ -250,7 +250,7 @@ rabbitHouseImage.addEventListener('click', function() {
             title: "Jawaban Masih belum tepat!",
             text: "Ini rumah kucing!",
             imageUrl: "../style/catHouse.png",
-            imageWidth: 400,
+            imageWidth: 200,
             imageHeight: 200,
             imageAlt: "Custom image",
             confirmButtonText: 'OK'
@@ -274,8 +274,8 @@ function initializeAnimalCaptcha() {
         Swal.fire({
             title: "Good Job!",
             text: "Turtle bisa berlari bersama kelinci, meskipun lambat!",
-            imageUrl: "../style/turtle.png",
-            imageWidth: 400,
+            imageUrl: "../style/turtle.JPG",
+            imageWidth: 200,
             imageHeight: 200,
             imageAlt: "Turtle image",
             confirmButtonText: 'OK'
@@ -291,7 +291,7 @@ function initializeAnimalCaptcha() {
         Swal.fire({
             title: "Oops, Salah!",
             text: "Ikan tidak bisa berlari di darat!",
-            imageUrl: "../style/Fish.png",
+            imageUrl: "../style/Fish.jpg",
             imageWidth: 200,
             imageHeight: 200,
             imageAlt: "Fish image",
@@ -304,8 +304,8 @@ function initializeAnimalCaptcha() {
         Swal.fire({
             title: "Oops, Salah!",
             text: "Burung lebih suka terbang daripada berlari!",
-            imageUrl: "../style/bird.png",
-            imageWidth: 400,
+            imageUrl: "../style/bird.jpg",
+            imageWidth: 200,
             imageHeight: 200,
             imageAlt: "Bird image",
             confirmButtonText: 'OK'

@@ -19,7 +19,7 @@ body {
 
 .captcha-container {
     background-color: #ffffff;
-    background-image: url('farm.jpg');
+    background-image: url('../style/background.png');
     background-repeat: no-repeat;
     background-size: 110%;
     background-position: center;
