@@ -1,3 +1,6 @@
+let captchaTimeout;
+
+
 function showCaptchaPopup() {
     const modal = document.getElementById("captchaModal");
     const captchaContent = document.getElementById("captcha-content");
@@ -7,18 +10,57 @@ function showCaptchaPopup() {
 
     modal.style.display = "block"; // Show the modal
 
+    // Start a 10-second timeout for CAPTCHA
+    captchaTimeout = setTimeout(() => {
+        Swal.fire({
+            title: "CAPTCHA Failed",
+            text: "Time limit exceeded. Please try logging in again.",
+            icon: "error",
+            confirmButtonText: "OK"
+        }).then(() => {
+            modal.style.display = "none"; // Close the modal
+            resetLogin(); // Reset login form and error message
+        });
+    }, 10000); // 10 seconds
+
     // Close the modal when user clicks on <span> (x)
     document.getElementById("closeModal").onclick = function() {
         modal.style.display = "none";
+        clearTimeout(captchaTimeout); // Clear timeout if user closes manually
     };
 
     // Close the modal if user clicks outside of it
     window.onclick = function(event) {
         if (event.target == modal) {
             modal.style.display = "none";
+            clearTimeout(captchaTimeout); // Clear timeout if user clicks outside
         }
     };
 }
+
+function startCaptchaTimeout() {
+    clearTimeout(captchaTimeout); // Clear any existing timeout
+    captchaTimeout = setTimeout(() => {
+        Swal.fire({
+            title: "CAPTCHA Failed",
+            text: "Time limit exceeded. Please try logging in again.",
+            icon: "error",
+            confirmButtonText: "OK"
+        }).then(() => {
+            document.getElementById("captchaModal").style.display = "none"; // Close the modal
+            resetLogin(); // Reset login form and error message
+        });
+    }, 10000); // 10 seconds
+}
+
+// Function to mark CAPTCHA as completed and hide the modal
+function completeCaptcha() {
+    clearTimeout(captchaTimeout); // Clear timeout when CAPTCHA is completed
+    const modal = document.getElementById("captchaModal");
+    modal.style.display = "none"; // Hide modal
+    window.location.href = 'home.html'; // Redirect to home page
+}
+
 
 // Function to reload the CAPTCHA after incorrect answer
 function reloadCaptcha() {
@@ -26,50 +68,6 @@ function reloadCaptcha() {
     captchaContent.innerHTML = ''; // Clear existing CAPTCHA content
     loadRandomCaptcha(captchaContent); // Load new random CAPTCHA
 }
-
-// function loadRandomCaptcha(captchaContent) {
-//     const captchaPages = ['page1.html', 'page2.html', 'page3.html'];
-
-//     // Improved randomization with logging
-//     const randomIndex = Math.floor(Math.random() * captchaPages.length);
-//     const randomPage = `${captchaPages[randomIndex]}?t=${Date.now()}`; // Cache-busting query parameter
-
-//     console.log('Random Index:', randomIndex); // Log the index
-//     console.log('Selected CAPTCHA page:', randomPage); // Log the selected page
-
-//     fetch(randomPage)
-//         .then(response => {
-//             if (!response.ok) {
-//                 throw new Error(`HTTP error! Status: ${response.status}`);
-//             }
-//             return response.text();
-//         })
-//         .then(html => {
-//             captchaContent.innerHTML = html; // Set CAPTCHA content
-//             console.log('CAPTCHA page loaded successfully');
-
-//             // Set data-type based on the loaded page
-//             if (randomPage.includes('page1.html')) {
-//                 captchaContent.setAttribute('data-type', 'house');
-//             } else if (randomPage.includes('page2.html')) {
-//                 captchaContent.setAttribute('data-type', 'fruit');
-//             } else if (randomPage.includes('page3.html')) {
-//                 captchaContent.setAttribute('data-type', 'animal');
-//             }
-
-//             // Initialize the CAPTCHA event listeners
-//             initializeCaptcha(captchaContent.getAttribute('data-type'));
-//         })
-//         .catch(error => {
-//             console.error('Error loading CAPTCHA:', error);
-//             Swal.fire({
-//                 title: "Error loading CAPTCHA",
-//                 text: "Please try again later.",
-//                 icon: "error",
-//                 confirmButtonText: "OK"
-//             });
-//         });
-// }
 
 function loadRandomCaptcha(captchaContent) {
     const captchaPages = ['page1.html', 'page2.html', 'page3.html'];
@@ -184,7 +182,10 @@ function initializeFruitCaptcha() {
             imageHeight: 200,
             imageAlt: "Custom image",
             confirmButtonText: 'OK'
-        }).then(() => reloadCaptcha());
+        }).then(() => {
+            reloadCaptcha()
+            startCaptchaTimeout()
+        });
     });
 
     // Event listener for banana (incorrect answer)
@@ -197,7 +198,10 @@ function initializeFruitCaptcha() {
             imageHeight: 200,
             imageAlt: "Custom image",
             confirmButtonText: 'OK'
-        }).then(() => reloadCaptcha());
+        }).then(() => {
+            reloadCaptcha()
+            startCaptchaTimeout()
+        });
     });
 }
 
@@ -241,7 +245,10 @@ rabbitHouseImage.addEventListener('click', function() {
             imageHeight: 200,
             imageAlt: "Custom image",
             confirmButtonText: 'OK'
-        }).then(() => reloadCaptcha());
+        }).then(() => {
+            reloadCaptcha()
+            startCaptchaTimeout()
+        });
     });
 
     // Event listener for cat house (incorrect answer)
@@ -254,7 +261,10 @@ rabbitHouseImage.addEventListener('click', function() {
             imageHeight: 200,
             imageAlt: "Custom image",
             confirmButtonText: 'OK'
-        }).then(() => reloadCaptcha());
+        }).then(() => {
+            reloadCaptcha()
+            startCaptchaTimeout()
+        });
     });
 }
 
@@ -296,7 +306,10 @@ function initializeAnimalCaptcha() {
             imageHeight: 200,
             imageAlt: "Fish image",
             confirmButtonText: 'OK'
-        }).then(() => reloadCaptcha());
+        }).then(() => {
+            reloadCaptcha()
+            startCaptchaTimeout()
+        });
     });
 
     // Event listener for bird (incorrect answer)
@@ -309,23 +322,12 @@ function initializeAnimalCaptcha() {
             imageHeight: 200,
             imageAlt: "Bird image",
             confirmButtonText: 'OK'
-        }).then(() => reloadCaptcha());
+        }).then(() => {
+            reloadCaptcha()
+            startCaptchaTimeout()
+        });
     });
 }
-
-// Function to mark CAPTCHA as completed and hide the modal
-function completeCaptcha() {
-    captchaCompleted = true; 
-    captchaRequired = false; 
-    const modal = document.getElementById("captchaModal");
-    modal.style.display = "none";
-    
-    // Arahkan ke home.html setelah CAPTCHA selesai
-    window.location.href = 'home.html'; // Ganti dengan path yang sesuai
-}
-
-
-
 
 // Reset login form and error message
 function resetLogin() {
